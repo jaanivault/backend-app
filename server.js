@@ -12,7 +12,10 @@
    const app=express();
 
    app.use(express.json());
-   app.use(cors());
+   app.use(cors({
+    origin: "https://mybuddyvault.netlify.app", // ✅ Allow your frontend
+    credentials: true, // optional, only if you send cookies
+  }));
 
 
    app.use("/api/auth",authRoutes);
