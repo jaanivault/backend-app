@@ -108,14 +108,13 @@ const resetPassword = async (req, res) => {
     const user = await User.findOne({ email });
     if (
       !user ||
-      `${user.resetCode}` !== `${code}` ||
-      !user.resetCodeExpires ||
+      String(user.resetCode) !== String(code) ||
       user.resetCodeExpires < Date.now()
     ) {
       return res.status(400).json({ message: "Invalid or expired reset code" });
     }
 
-    user.password = newPassword;
+    user.password = newPassword; // Will be hashed on save via model
     user.resetCode = undefined;
     user.resetCodeExpires = undefined;
 
@@ -127,6 +126,7 @@ const resetPassword = async (req, res) => {
     res.status(500).json({ message: "🚨 Server error", error: error.message });
   }
 };
+
 
 
 
