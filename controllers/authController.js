@@ -103,12 +103,12 @@ const forgotPassword = async (req, res) => {
 // RESET PASSWORD
 const resetPassword = async (req, res) => {
   try {
-    const { email, resetcode, newPassword } = req.body;
+    const { email, resetCode, newPassword } = req.body;
 
     const user = await User.findOne({ email });
     if (
       !user ||
-      String(user.resetCode) !== String(resetcode) ||
+      String(user.resetCode) !== String(resetCode) ||
       user.resetCodeExpires < Date.now()
     ) {
       return res.status(400).json({ message: "Invalid or expired reset code" });
