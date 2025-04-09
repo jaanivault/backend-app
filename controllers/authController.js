@@ -103,7 +103,7 @@ const forgotPassword = async (req, res) => {
 // RESET PASSWORD
 const resetPassword = async (req, res) => {
   try {
-    const { email, code, newPassword } = req.body;
+    const { email, resetcode, newPassword } = req.body;
 
     const user = await User.findOne({ email });
     if (
